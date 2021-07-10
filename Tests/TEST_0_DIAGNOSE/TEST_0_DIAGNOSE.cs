@@ -7,12 +7,12 @@ using System.IO;
 namespace Tests
 {
     [TestClass]
-    public class TEST_1_BASIC_TYPES_TEST : Base
+    public class TEST_0_DIAGNOSE : Base
     {
         [TestMethod]
         public void Run()
         {
-            Run("TEST_1_BASIC_TYPES_TEST");
+            Run("TEST_0_DIAGNOSE");
         }
     }
 }

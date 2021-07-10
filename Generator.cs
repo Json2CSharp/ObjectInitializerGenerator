@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ObjectInitializerGenerator
 {
-    public class Generator 
+    public class Generator
     {
         private readonly ICodeWriter codeWriter;
         List<ObjectModel> objectModelList;
@@ -16,7 +16,8 @@ namespace ObjectInitializerGenerator
             this.codeWriter = codeWriter;
         }
 
-        public Generator Analyse(string input) {
+        public Generator Analyse(string input)
+        {
             try
             {
                 SyntaxTree tree = CSharpSyntaxTree.ParseText(input);
@@ -57,13 +58,14 @@ namespace ObjectInitializerGenerator
         }
 
 
-        private void AnalyseChildNodes(SyntaxNode node, ObjectModel parent) {
-            
+        private void AnalyseChildNodes(SyntaxNode node, ObjectModel parent)
+        {
+
             foreach (SyntaxNode child in node.ChildNodes())
             {
                 if (child.Kind() == SyntaxKind.ClassDeclaration)
                 {
-                    ObjectModel subParent= new ObjectModel();
+                    ObjectModel subParent = new ObjectModel();
                     foreach (SyntaxToken item in child.ChildTokens())
                     {
                         if (item.Kind() == SyntaxKind.IdentifierToken)
@@ -96,9 +98,9 @@ namespace ObjectInitializerGenerator
 
                     foreach (SyntaxNode item in child.ChildNodes())
                     {
-                        if ( item.Kind() == SyntaxKind.PredefinedType // Any Non Generic Property
+                        if (item.Kind() == SyntaxKind.PredefinedType // int, bool, string
                             || item.Kind() == SyntaxKind.NullableType // Nullable kinds
-                            || item.Kind() == SyntaxKind.IdentifierName) // Classes
+                            || item.Kind() == SyntaxKind.IdentifierName) // Classes, Guid, Boolean, String
                         {
                             property.PropertyType = item.ToString();
                             property.NodeType = item.Kind();
@@ -127,7 +129,8 @@ namespace ObjectInitializerGenerator
             }
         }
 
-        public string Write() {
+        public string Write()
+        {
 
             try
             {
